@@ -123,10 +123,11 @@ footer {
   color: #8b949e;
   padding: 1rem 0;
 }
-#qrResult  {
-  background: #fff;   
-  padding: 10px;     
+#qrResult {
+  background: #fff;
+  padding: 10px;
   border-radius: 8px;
-  display: block;
   margin: 1rem auto;
+ 
+  display: none;
 }
