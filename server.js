@@ -1,14 +1,15 @@
 const express = require('express');
 const qr = require('qr-image');
 const cors = require('cors');
+const path = require('path'); // 1. Added the 'path' module
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.get('/', (req, res) => {
-    res.send('QR Code Generator Backend is running.');
-});
+
+app.use(express.static(path.join(__dirname, 'public')));
+
 
 app.post('/generate', (req, res) => {
     const { text } = req.body;
@@ -20,7 +21,7 @@ app.post('/generate', (req, res) => {
     res.send(qrSvg);
 });
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:5000`);
+    console.log(`Server running on http://localhost:${PORT}`);
 });
