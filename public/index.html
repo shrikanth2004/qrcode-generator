@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>QR Code Generator</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>QR Code Generator</h1>
+    <p>Generate and download QR codes instantly with Node.js + Express backend</p>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>Generate QR Code</h2>
+     <form id="qrForm">
+  <input type="text" id="textInput" placeholder="Enter text or URL" required />
+  <button type="submit">Generate</button>
+</form>
+<div class="note">
+      <div id="qrResult"></div>
+      </div>
+      <button id="downloadBtn">Download as PNG</button>
+    </section>
+
+    <section class="card info">
+      <h2>How It Works</h2>
+      <p>1. Enter text or URL</p>
+      <p>2. Backend generates QR in SVG</p>
+      <p>3. Display on screen</p>
+      <p>4. Download as PNG</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>⚡ Built using Node.js, Express & qr-image</p>
+  </footer>
+
+  <script>
+    const form = document.getElementById("qrForm");
+    const result = document.getElementById("qrResult");
+    const downloadBtn = document.getElementById("downloadBtn");
+
+    let lastSvg = null;
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const text = document.getElementById("textInput").value;
+
+      try {
+        const res = await fetch("http://localhost:5000/generate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ text })
+        });
+
+        if (!res.ok) {
+          result.innerHTML = "<p class='error'>Failed to generate QR code.</p>";
+          downloadBtn.style.display = "none";
+          return;
+        }
+
+        const qrSvg = await res.text();
+        result.innerHTML = qrSvg;
+        lastSvg = qrSvg;
+        downloadBtn.style.display = "inline-block";
+      } catch (err) {
+        result.innerHTML = "<p class='error'>Server error. Please try again.</p>";
+        downloadBtn.style.display = "none";
+      }
+    });
+
+    downloadBtn.addEventListener("click", () => {
+      if (!lastSvg) return;
+
+      const img = new Image();
+      const svgBlob = new Blob([lastSvg], { type: "image/svg+xml;charset=utf-8" });
+      const url = URL.createObjectURL(svgBlob);
+
+      img.onload = () => {
+        const canvas = document.createElement("canvas");
+        canvas.width = 500;
+        canvas.height = 500;
+        const ctx = canvas.getContext("2d");
+        ctx.fillStyle = "white";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+        const link = document.createElement("a");
+        link.download = "qrcode.png";
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+
+        URL.revokeObjectURL(url);
+      };
+
+      img.src = url;
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,132 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", sans-serif;
+  background-color: #0d1117;
+  color: #e6edf3;
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1rem;
+}
+
+/* Header */
+header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+header h1 {
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: #00ff88;
+}
+
+header p {
+  color: #9baecf;
+  margin-top: 0.5rem;
+  font-size: 1rem;
+}
+
+/* Layout */
+main {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  width: 100%;
+  max-width: 1000px;
+}
+
+/* Cards */
+.card {
+  background-color: #161b22;
+  padding: 1.5rem;
+  border-radius: 12px;
+  flex: 1;
+  min-width: 320px;
+  max-width: 450px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+
+.card h2 {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  color: #58a6ff;
+}
+
+/* Form */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 1.5rem;
+}
+
+input {
+  padding: 0.7rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  width: 100%;
+}
+
+button {
+  background: #00ff88;
+  color: #000;
+  border: none;
+  padding: 0.8rem;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+  text-align: center;
+}
+
+button:hover {
+  background: #00cc6a;
+}
+
+#downloadBtn {
+  background: #ff6a00;
+  color: #fff;
+  display: none;
+  margin-top: 1rem;
+}
+
+#downloadBtn:hover {
+  background: #cc5200;
+}
+
+/* Make footer stick to bottom */
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1; /* pushes footer down */
+}
+
+footer {
+  margin-top: auto;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #8b949e;
+  padding: 1rem 0;
+}
+#qrResult  {
+  background: #fff;   
+  padding: 10px;     
+  border-radius: 8px;
+  display: block;
+  margin: 1rem auto;
+}
