@@ -26,6 +26,7 @@ app.post('/upload', upload.single('image'), async (req, res) => {
         // Upload the file to Vercel Blob
         const blob = await put(req.file.originalname, req.file.buffer, {
             access: 'public',
+            token: process.env.BLOB_READ_WRITE_TOKEN
         });
 
         // Vercel Blob returns the public URL
